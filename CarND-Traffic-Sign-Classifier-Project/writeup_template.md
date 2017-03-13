@@ -23,10 +23,9 @@ The goals / steps of this project are the following:
 [image6]: ./examples/german_traffic_sign3.jpg "Traffic Sign 3"
 [image7]: ./examples/german_traffic_sign4.jpg “Traffic Sign 4"
 [image8]: ./examples/german_traffic_sign5.jpg "Traffic Sign 5"
+[image9]: ./examples/distribution.png "Data Distribution"
 
 ###Writeup / README
-
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
 
 ###Data Set Summary & Exploration
 
@@ -114,8 +113,8 @@ The code for calculating the accuracy of the model is located in the ninth cell 
 
 My final model results were:
 * training set accuracy of 93.3%
-* validation set accuracy of 88.1%
-* test set accuracy of 87.4%
+* validation set accuracy of 87.7%
+* test set accuracy of 86.5%
 
 If a well known architecture was chosen:
 I adapt LeNet for training my Traffic Sign Classifier, since they aim at similar problem (e.g. image classification) and LeNet is complex enough for our problem.
@@ -148,19 +147,57 @@ Here are the results of the prediction:
 
 The model was able to correctly guess 5 of the 5 traffic signs, which gives an accuracy of 100%. This compares favorably to the accuracy on the test set of 87.4%.
 
-####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
+####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability.
 
 The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+For the first image, the model is relatively sure that this is a stop sign (probability of 96%), and the image does contain a stop sign. The top five soft max probabilities were
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+| 0.96         			| Stop sign   									| 
+| 0.01    				| Keep right 									|
+| 0.008					| Speed limit (30km/h)							|
+| 0.007	      			| No vehicles					 				|
+| 0.003				    | Speed limit (120km/h)      					|
 
 
-For the second image ... 
+For the second image, the model is relatively sure that this is a Children crossing (probability of 99%), and the image does contain a stop sign. The top five soft max probabilities were
+
+| Probability           |     Prediction                                | 
+|:---------------------:|:---------------------------------------------:| 
+| 0.99                  | Children crossing                             | 
+| 0.004                 | Dangerous curve to the right                  |
+| 8.97e-05              | Beware of ice/snow                            |
+| 7.88e-05              | Right-of-way at the next intersection         |
+| 1.46-06               | Slippery Road                                 |
+
+For the third image, the model is relatively sure that this is a No entry (probability of 96%), and the image does contain a stop sign. The top five soft max probabilities were
+
+| Probability           |     Prediction                                | 
+|:---------------------:|:---------------------------------------------:| 
+| 0.96                  | No entry                                      | 
+| 0.03                  | Keep left                                     |
+| 1.73e-05              | Turn right ahead                              |
+| 6.76e-07              | End of all speed and passing limits           |
+| 3.49e-07              | Go straight or left                           |
+
+For the forth image, the model is relatively sure that this is a Pedestrians sign (probability of 99%), and the image does contain a stop sign. The top five soft max probabilities were
+
+| Probability           |     Prediction                                | 
+|:---------------------:|:---------------------------------------------:| 
+| 0.99                  | Pedestrians                                   | 
+| 0.002                 | Road narrows on the right                     |
+| 0.0009                | Traffic signals                               |
+| 4.44e-06              | General caution                               |
+| 1.97e-07              | Right-of-way at the next intersection         |
+
+For the fifth image, the model is relatively sure that this is a Right-of-way at the next intersection sign (probability of 99%), and the image does contain a stop sign. The top five soft max probabilities were
+
+| Probability           |     Prediction                                | 
+|:---------------------:|:---------------------------------------------:| 
+| 0.99                  | Right-of-way at the next intersection         | 
+| 0.005                 | Beware of ice/snow                            |
+| 9.74e-07              | Slippery road                                 |
+| 9.74e-07              | Double curve                                  |
+| 3.00e-08              | Dangerous curve to the right                  |
