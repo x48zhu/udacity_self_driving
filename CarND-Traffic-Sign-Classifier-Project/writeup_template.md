@@ -21,7 +21,7 @@ The goals / steps of this project are the following:
 [image4]: ./examples/german_traffic_sign1.jpg "Traffic Sign 1"
 [image5]: ./examples/german_traffic_sign2.jpg "Traffic Sign 2"
 [image6]: ./examples/german_traffic_sign3.jpg "Traffic Sign 3"
-[image7]: ./examples/german_traffic_sign4.jpg “Traffic Sign 4"
+[image7]: ./examples/german_traffic_sign4.jpg "Traffic Sign 4"
 [image8]: ./examples/german_traffic_sign5.jpg "Traffic Sign 5"
 [image9]: ./examples/distribution.png "Data Distribution"
 
@@ -46,9 +46,13 @@ signs data set:
 
 The code for this step is contained in the third code cell of the IPython notebook.  
 
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
+Here is an exploratory visualization of the data set. 
 
 ![Visualization of data set][image1]
+
+Here is a bar chart showing how the data distributed.
+
+![Distribution of data set][image9]
 
 ###Design and Test a Model Architecture
 
@@ -127,8 +131,17 @@ The validation set accuracy keeps going up and gradually stops growing, which is
 
 Here are five German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+![alt text][image4] 
+
+![alt text][image5] 
+
+![alt text][image6] 
+
+![alt text][image7] 
+
+![alt text][image8]
+
+Some of these images are hard to predict (possibly be mis-classified) because: first, the backgrounds are different from the training data; second, some pictures are transformed (e.g. picture 3 is rotated by some angle).
 
 ####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. Identify where in your code predictions were made. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
