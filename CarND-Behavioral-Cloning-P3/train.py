@@ -5,10 +5,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
-import tensorflow as tf
-
-from keras.models import Model, Sequential
-from keras.layers import Flatten, Dense
 
 
 dir_root = '/Users/xi/Downloads/data/behavior_clone'
@@ -91,6 +87,7 @@ history_object = model.fit_generator(train_generator,
 
 metrics = model.evaluate_generator(test_generator,
                                    val_samples=len(test_samples))
+
 for metric_i in range(len(model.metrics_names)):
     metric_name = model.metrics_names[metric_i]
     metric_value = metrics[metric_i]
@@ -108,3 +105,4 @@ print(history_object.history.keys())
 # plt.show()
 
 model.save('model.h5')
+
