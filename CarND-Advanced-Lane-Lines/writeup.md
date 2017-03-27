@@ -56,18 +56,7 @@ Here's an example of the output for this step.
 
 ####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warper()`, which appears in the 3rd code cell of the IPython notebook.  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
-
-```
-src = np.float32([[265, 675],
-                  [578, 463],
-                  [704, 463],
-                  [1040, 675]])
-dst = np.float32([[250, 690],
-                  [250, 100],
-                  [1050, 100],
-                  [1050, 690]])
-```
+The code for my perspective transform includes a function called `warper()`, which appears in the 3rd code cell of the IPython notebook.  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points.
 This resulted in the following source and destination points:
 
 | Source        | Destination   | 
@@ -83,13 +72,13 @@ I verified that my perspective transform was working as expected by drawing the 
 
 ####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial in the function `fit_line_init()`:
+Then I fit my lane lines with a 2nd order polynomial in the function `fit_line_init()`:
 
 ![alt text][image5]
 
 ####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in the functions `calc_curvature()` and `calc_position()`
+I did this in the functions `calc_curvature()` and `calc_position()`
 
 ####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
@@ -113,6 +102,12 @@ Here's a [link to my video result](./project_video_output.mp4)
 
 The issue I faced is to decide how to combine multiple binary threshold pictures. Different thresholds grasp different features of the image, the goal is to use and/or/not to find the best combination result where the lane is detected. 
 I add a debug mode to the combine function. Under debug mode, every binary picture is plotted, which helps me easily try different combination.
+
+I ran the pipeline on the challenge video, the pipeline will fail in a few cases right now:
+
+First, if the lane is not clear for some reason, (e.g. covered by leaves) the lane detection will fail. This is a serious problem for the algorithm we use here. One method could improve this is predicting the lane based on the enviroment and smoothing the prediction with previous detected lane.
+
+Second, if the road ahead has multiple curves, the quadratic function fitness will fail. One of the way to fix this is to consider more complicated fitting functions (e.g. cubic function?); or we can only fit points that are close.
 
 
 

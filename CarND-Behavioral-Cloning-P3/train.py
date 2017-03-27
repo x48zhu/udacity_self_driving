@@ -7,14 +7,18 @@ from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 
 
+# Load the data and labels
 dir_root = '/Users/xi/Downloads/data/behavior_clone'
 samples = []
 with open(os.path.join(dir_root, 'driving_log.csv')) as csvfile:
     reader = csv.reader(csvfile)
+    next(reader, None)
     for line in reader:
         samples.append(line)
 
 
+# Define a generator that feeds the training and testing data on fly
+# This prevents loading all image data into memory at once.
 def generator(samples, batch_size=32, is_train=False):
     num_samples = len(samples)
     if is_train:
@@ -34,7 +38,10 @@ def generator(samples, batch_size=32, is_train=False):
                 left_image = cv2.imread(left_name)
                 right_image = cv2.imread(right_name)
 
-                correction = 0.1
+                # Also use image from left and right camera with correspoding
+                # angle adjusted. This teaches the network to steer more when
+                # the center camera sees too left or too right.
+                correction = 0.2
                 center_angle = float(batch_sample[3])
                 left_angle = center_angle + correction
                 right_angle = center_angle - correction
@@ -46,6 +53,7 @@ def generator(samples, batch_size=32, is_train=False):
                 angles.append(left_angle)
                 angles.append(right_angle)
 
+                # Data augmentation for training purpose by flipping the image
                 if is_train:
                     center_image = np.fliplr(center_image)
                     center_angle = - center_angle
@@ -67,6 +75,7 @@ def generator(samples, batch_size=32, is_train=False):
             yield shuffle(X_train, y_train)
 
 
+# Split the data into training, validationt and test set, and create generateor.
 train_samples, test_samples = train_test_split(samples, test_size=0.2)
 train_samples, validation_samples = train_test_split(train_samples,
                                                      test_size=0.2)
@@ -79,12 +88,14 @@ ch, row, col = 3, 80, 320
 
 from model import model as model
 
+# Load the model and do the training.
 history_object = model.fit_generator(train_generator,
                                      samples_per_epoch=len(train_samples),
                                      validation_data=validation_generator,
                                      nb_val_samples=len(validation_samples),
                                      nb_epoch=1, verbose=1)
 
+# Evaluate the trained model.
 metrics = model.evaluate_generator(test_generator,
                                    val_samples=len(test_samples))
 
@@ -92,8 +103,6 @@ for metric_i in range(len(model.metrics_names)):
     metric_name = model.metrics_names[metric_i]
     metric_value = metrics[metric_i]
     print('{}: {}'.format(metric_name, metric_value))
-
-print(history_object.history.keys())
 
 # plot the training and validation loss for each epoch
 # plt.plot(history_object.history['loss'])
@@ -104,5 +113,6 @@ print(history_object.history.keys())
 # plt.legend(['training set', 'validation set'], loc='upper right')
 # plt.show()
 
+# Save the model
 model.save('model.h5')
 
